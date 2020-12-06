@@ -14,7 +14,6 @@ public class ComparatorEx {
         Arrays.sort(starArr, new Descending());
         System.out.println("strArr=" + Arrays.toString(starArr));
 
-
     }
 }
 
