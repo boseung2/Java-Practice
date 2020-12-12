@@ -10,8 +10,6 @@ class Exercise6_22 {
             }
         }
         return true;
-
-
     }
 
 
