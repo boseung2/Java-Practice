@@ -41,8 +41,8 @@ class Point {
 class Circle extends Shape {
     double r;
 
-    public Circle() {
-
+    public Circle(double r) {
+        this(new Point(0, 0), r);
     }
 
     public Circle(Point p, double r) {
@@ -52,16 +52,32 @@ class Circle extends Shape {
 
     @Override
     double calcArea() {
-        return 0;
+        return Math.PI * r * r;
     }
 
 }
 
 class Rectangle extends Shape {
+    double width;
+    double height;
+
+    public Rectangle(double width, double height) {
+        this(new Point(0,0), width, height);
+    }
+
+    public Rectangle(Point p, double width, double height) {
+        super(p);
+        this.width = width;
+        this.height = height;
+    }
+
+    public boolean isSquare() {
+        return width == height ? true : false;
+    }
 
     @Override
     double calcArea() {
-        return 0;
+        return width * height;
     }
 
 }
