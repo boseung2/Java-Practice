@@ -8,8 +8,8 @@ public class IOEx2 {
         byte[] outSrc = null;
         byte[] temp = new byte[10];
 
-        ByteArrayInputStream input = null;
-        ByteArrayOutputStream output = null;
+        ByteArrayInputStream input = new ByteArrayInputStream(inSrc);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         input.read(temp, 0, temp.length);
         output.write(temp, 5, 5);
