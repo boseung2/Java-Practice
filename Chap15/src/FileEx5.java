@@ -1,5 +1,9 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 
 public class FileEx5 {
     public static void main(String[] args) {
@@ -21,16 +25,64 @@ public class FileEx5 {
         File dir = new File(currDir);
         File[] files = dir.listFiles();
 
-        Comparator comp = new Comparator(){
+        Comparator<File> comp = (o1, o2) -> {
+            long time1 = o1.lastModified();
+            long time2 = o2.lastModified();
 
-            @Override
-            public int compare(Object o1, Object o2) {
-                return 0;
+            long length1 = o1.length();
+            long lenth2 = o2.length();
+
+            String name1 = o1.getName().toLowerCase();
+            String name2 = o2.getName().toLowerCase();
+
+            int result = 0;
+
+            switch(option) {
+                case 't' :
+                    if(time1 - time2 > 0) result = 1;
+                    else if(time1 - time2 == 0) result = 0;
+                    else if(time1 - time2 < 0) result = -1;
+                    break;
+                case 'T' :
+                    if(time1 - time2 > 0) result = -1;
+                    else if(time1 - time2 == 0) result = 0;
+                    else if(time1 - time2 < 0) result = 1;
+                case 'l' :
+                    if(time1 - time2 > 0) result = 1;
+                    else if(time1 - time2 == 0) result = 0;
+                    else if(time1 - time2 < 0) result = -1;
+                case 'L' :
+                    if(time1 - time2 > 0) result = -1;
+                    else if(time1 - time2 == 0) result = 0;
+                    else if(time1 - time2 < 0) result = 1;
+                case 'n'  :
+                    result = name1.compareTo(name2);
+                    break;
+                case 'N'  :
+                    result = name2.compareTo(name1);
+                    break;
             }
-
-
+            return result;
         };
 
 
+        Arrays.sort(files, comp);
+
+        for(int i=0; i<files.length; i++) {
+            File f = files[i];
+            String name = f.getName();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String attribute = "";
+            String size = "";
+            if(files[i].isDirectory()) {
+                attribute = "DIR";
+            } else {
+                size = f.length() + "";
+                attribute += f.canRead() ? "R" : " ";
+                attribute += f.canWrite() ? "W" : " ";
+                attribute += f.isHidden() ? "H" : " ";
+            }
+            System.out.printf("%s %3s %6s %s%n", df.format(new Date(f.lastModified())), attribute, size, name);
+        }
     }
 }

@@ -1,29 +1,24 @@
 import javax.swing.*;
 
-public class ThreadEx14 {
+public class ThreadEx13 {
     public static void main(String[] args) {
-        ThreadEx14_1 th1 = new ThreadEx14_1();
+        ThreadEx13_1 th1 = new ThreadEx13_1();
         th1.start();
 
-        String input = JOptionPane.showInputDialog("아무 값이나 입력하세요.");
+        String input = JOptionPane.showInputDialog(("아무 값이나 입력하세요."));
         System.out.println("입력하신 값은 " + input + "입니다.");
         th1.interrupt();
         System.out.println("isInterrupted():" + th1.isInterrupted());
     }
 }
 
-class ThreadEx14_1 extends Thread {
+class ThreadEx13_1 extends Thread {
     @Override
     public void run() {
-        int i=10;
-
-        while(i!=0 && !isInterrupted()) {
+        int i = 10;
+        while(i != 0 && !isInterrupted()) {
             System.out.println(i--);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e){
-                interrupt();
-            }
+            for(long x = 0; x < 2500000000L; x++);
         }
         System.out.println("카운트가 종료되었습니다.");
     }
